@@ -1,0 +1,1110 @@
+[
+    {
+        "id": "83a67f6d.851a9",
+        "type": "tab",
+        "label": "AI-Starter-low code/no-code",
+        "disabled": false,
+        "info":""
+    },
+    {
+        "id": "f84a7a33.168db8",
+        "type": "file in",
+        "z": "83a67f6d.851a9",
+        "name": "Read File 1",
+        "filename": "df_tmp.csv",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "x": 890,
+        "y": 260,
+        "wires": [
+            [
+                "28e2738b.74fd3c"
+            ]
+        ]
+    },
+    {
+        "id": "28e2738b.74fd3c",
+        "type": "csv",
+        "z": "83a67f6d.851a9",
+        "name": "",
+        "sep": ",",
+        "hdrin": true,
+        "hdrout": "none",
+        "multi": "mult",
+        "ret": "\\r\\n",
+        "temp": "",
+        "skip": "0",
+        "strings": true,
+        "include_empty_strings": false,
+        "include_null_values": false,
+        "x": 890,
+        "y": 320,
+        "wires": [
+            [
+                "2432c2ff.97a11e",
+                "cc6599f1.a577b8"
+            ]
+        ]
+    },
+    {
+        "id": "a7795b6.b5710a8",
+        "type": "ui_button",
+        "z": "83a67f6d.851a9",
+        "name": "",
+        "group": "9b5fdfc0.353aa",
+        "order": 11,
+        "width": 3,
+        "height": 1,
+        "passthru": false,
+        "label": "Read Dataframe",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "date",
+        "topic": "",
+        "x": 80,
+        "y": 260,
+        "wires": [
+            [
+                "566473ba.3f4a7c"
+            ]
+        ]
+    },
+    {
+        "id": "98f9c3f6.f0b16",
+        "type": "ui_button",
+        "z": "83a67f6d.851a9",
+        "name": "RD_Config",
+        "group": "9b5fdfc0.353aa",
+        "order": 2,
+        "width": 3,
+        "height": 1,
+        "passthru": false,
+        "label": "Read_Config",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "show",
+        "x": 150,
+        "y": 40,
+        "wires": [
+            [
+                "eb69fe9a.5ff33"
+            ]
+        ]
+    },
+    {
+        "id": "eb69fe9a.5ff33",
+        "type": "ui_template",
+        "z": "83a67f6d.851a9",
+        "group": "8effe4ac.c90a98",
+        "name": "User Input Dialog",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "format": "<div ng-init=\"init()\" id=\"popup_dialog\" class=\"dialog\">\n    \n    <div class=\"dialog_content\">\n        \n        <div class=\"dialog_header\">\n            <span ng-click=\"closeDialog()\" class=\"close\">&times;</span>\n            <h2 class=\"title\">Read Data Configuration</h2>\n        </div>\n        \n        <div class=\"dialog_body\">\n\n            <div layout=\"column\" layout-align=\"center\" style=\"margin-top: 10px\">\n                \n                <label for=\"File Type\">Select the format:</label>\n                <select ng-model=\"type\" name=\"File Type\" id=\"filetype\">\n                    <option value=\"csv\">CSV</option>\n                    <option value=\"json\">JSON</option>\n                    <option value=\"excel\">Excel</option>\n                </select>\n                \n                <label for=\"File location\">choose file location:</label>\n                <select ng-model=\"loc\" name=\"File location\" id=\"filelocation\" >\n                    <option value=\"remote\">remote</option>\n                    <option value=\"local\">local</option>\n                </select>\n                \n                <md-input-container>\n                    <label>web Url for file</label>\n                    <input ng-model=\"userInput\" ng-show=\"loc=='remote'\">\n                </md-input-container>\n                \n                \n         \n                 <div layout=\"row\" layout-align=\"center\">\n                    <div class=\"btn_box\">\n                        <md-button class=\"btn\" ng-click=\"confirm()\">\n                            <ng-md-icon icon=\"done\" style=\"color:#fff;\"></ng-md-icon> OK\n                        </md-button>\n                    </div>\n    \n                    <div class=\"btn_box\">\n                        <md-button class=\"btn\" ng-click=\"closeDialog()\">\n                            <ng-md-icon icon=\"close\" style=\"color:#fff;\"></ng-md-icon> Cancel\n                        </md-button>\n                    </div>\n                </div>\n            </div> \n          \n        </div> <!--dialog_body-->\n    </div> <!--dialog_content-->\n</div>  <!--dialog-->\n\n\n<style>\n\n/* The Dialog (background) */\n.dialog {\n    display: none; /* Hidden by default */\n    position: fixed; /* Stay in place */\n    z-index: 9999; /* Sit on top */\n    left: 0;\n    top: 0;\n    width: 100%; /* Full width */\n    height: 100%; /* Full height */\n    overflow: auto; /* Enable scroll if needed */\n    background-color: rgb(0,0,0); /* Fallback color */\n    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */\n    -webkit-transform: translateZ(0px);\n    -webkit-transform: translate3d(0,0,0);\n    -webkit-perspective: 1000;\n}\n\n.dialog_content {\n    position: absolute;\n    background-color: #fff;\n    left: calc(50% - 170px);\n    top: 30px;\n    border-radius: 10px;\n    padding: 0;\n    width: 340px;\n    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);\n    -webkit-animation-name: animatetop;\n    animation-name: animatetop;\n    animation-duration: 0.4s;\n}\nh2.title {\n    margin:10px;\n    font-size: 20px;\n}\n/* Media query for smartphones (to Fix?) */\n@media only screen and (min-device-width : 375px) and (max-device-width : 667px) { \n    .dialog_content {\n    margin-top: 5%;\n    margin-left: 5%;\n}\n}\n\n/* Add Animation */\n@-webkit-keyframes animatetop {\n    from {top: -300px; opacity: 0} \n    to {top: 0; opacity: 1}\n}\n\n@keyframes animatetop {\n    from {top: -300px; opacity: 0}\n    to {top: 0; opacity: 1}\n}\n\n/* Dialog Header */\n.dialog_header {\n    padding: 2px 16px;\n    background-color: #03A9F4;\n    border-radius: 10px 10px 0 0;\n    color: white;\n}\n\n/* Dialog Body */\n.dialog_body {padding: 5px;}\n\n/* The Close Button */\n.close {\n    color: #fff;\n    float: right;\n    font-size: 28px;\n    font-weight: bold;\n    cursor: pointer;\n}\n\n.close:hover,\n.close:focus {\n    color: #1565C0;\n    text-decoration: none;\n    cursor: pointer;\n}\n\n/* Number container */\n.btn_box{\n    margin: 5px;\n}\n\n/* Buttons style */\n.btn {\n    min-height: 40px;\n    min-width: 80px;\n    font-weight: bold;\n    margin: 0px 10px 10px 0px;\n    box-shadow: 4px 4px 6px 0 #dadada;\n    background-color: #29B6F6;\n    color: #fff;\n}\n\n.btn:not([disabled]):hover {\n    background-color: #03A9F4;\n}\n\n\n</style>\n\n<script>\n\n\n\nvar dialog;\nvar flag=true;\n// var flag = \"welcome\"; \n  \n// if (document.getElementById('filelocation') == \"remote\") { \n//   document.getElementById('input_8').style.display = \"none\";  \n// } \n\n/* ==== */\n(function(scope) {\n    scope.userInput = \"\";\n    scope.type=\"\";\n    scope.loc=\"\";\n    scope.payload = \"\";\n    scope.topic = \"\";\n    scope.inited = false;\n    \n    scope.init = function() {\n        scope.userInput = \"\";\n        scope.type=\"\";\n        scope.loc=\"\"\n        //Hide the md-panel\n        $('#popup_dialog').parent().parent().css(\"display\", \"none\");\n        dialog = $('#popup_dialog').detach();\n    }\n    \n    // scope.display= function(){\n    //     if scope.loc===remote{\n    //         flag=true;\n    //     }\n    //     else{\n    //         flag=false;\n    //     }\n    // }\n    scope.showDialog = function() {\n        dialog.appendTo(document.body); // better to add the body only when the numpad is displayed (seams to be removed automatically)\n        dialog.css(\"display\", \"block\");\n    }\n    \n    scope.closeDialog = function(){\n        scope.userInput = \"\";\n        scope.type=\"\";\n        scope.loc=\"\"\n        scope.payload = \"\";\n        scope.topic = \"\";\n        dialog.css(\"display\", \"none\");\n    }\n    \n\n    scope.confirm = function() {\n        scope.send({topic: scope.payload.topic || scope.topic, userInput: scope.userInput , type:scope.type, location:scope.loc});\n        scope.closeDialog();\n    }\n\n    scope.$watch('msg', function(data) {\n        if(data && data.topic){\n            switch(data.topic){\n               case \"show\":\n                   if(scope.inited){\n                        scope.topic = data.topic;\n                        scope.payload = data.payload;\n                        scope.showDialog();\n                   }\n                   else\n                        scope.inited = true;\n                break;\n                case \"close\": \n                    scope.closeDialog(); \n                break;\n            }\n        }\n    });\n})(scope);\n\n</script>\n",
+        "storeOutMessages": false,
+        "fwdInMessages": false,
+        "resendOnRefresh": false,
+        "templateScope": "local",
+        "x": 370,
+        "y": 40,
+        "wires": [
+            [
+                "1c57d4e9.f511ab",
+                "f69bfaf1.8e60e8"
+            ]
+        ]
+    },
+    {
+        "id": "1c57d4e9.f511ab",
+        "type": "debug",
+        "z": "83a67f6d.851a9",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 650,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "f69bfaf1.8e60e8",
+        "type": "function",
+        "z": "83a67f6d.851a9",
+        "name": "",
+        "func": "// var type=global.get('type') || 0;\nglobal.set('type',msg.type,\"fileStore\");\n\n// var count=global.get('type') || 0;\nglobal.set('loc',msg.location,\"fileStore\");\n\nglobal.set(\"url\",msg.userInput,\"fileStore\")\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 540,
+        "y": 160,
+        "wires": [
+            [
+                "1cc09340.9d01dd"
+            ]
+        ]
+    },
+    {
+        "id": "1cc09340.9d01dd",
+        "type": "debug",
+        "z": "83a67f6d.851a9",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 710,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "574d256d.7301ac",
+        "type": "debug",
+        "z": "83a67f6d.851a9",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 910,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "566473ba.3f4a7c",
+        "type": "function",
+        "z": "83a67f6d.851a9",
+        "name": "",
+        "func": "msg.payload= {\"type\":global.get('type'),\n    \"loc\":global.get('loc'),\n    \"url\":global.get('url')}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 300,
+        "y": 260,
+        "wires": [
+            [
+                "97652311.c1c9e"
+            ]
+        ]
+    },
+    {
+        "id": "97652311.c1c9e",
+        "type": "json",
+        "z": "83a67f6d.851a9",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": true,
+        "x": 470,
+        "y": 260,
+        "wires": [
+            [
+                "87e60c75.a9e2a"
+            ]
+        ]
+    },
+    {
+        "id": "87e60c75.a9e2a",
+        "type": "pythonshell in",
+        "z": "83a67f6d.851a9",
+        "name": "",
+        "pyfile": "C:\\\\Users\\\\likhi\\\\Desktop\\\\read_df.py",
+        "virtualenv": "",
+        "continuous": false,
+        "stdInData": false,
+        "x": 660,
+        "y": 260,
+        "wires": [
+            [
+                "574d256d.7301ac",
+                "f84a7a33.168db8",
+                "9de157ae.393c08"
+            ]
+        ]
+    },
+    {
+        "id": "2432c2ff.97a11e",
+        "type": "ui_table",
+        "z": "83a67f6d.851a9",
+        "group": "3280603d.56c4a",
+        "name": "read_df_table",
+        "order": 1,
+        "width": 26,
+        "height": 10,
+        "columns": [],
+        "outputs": 0,
+        "cts": false,
+        "x": 920,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "6db85d6c.4dfb74",
+        "type": "file in",
+        "z": "83a67f6d.851a9",
+        "name": "Read File",
+        "filename": "clean_df_tmp.csv",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "x": 840,
+        "y": 720,
+        "wires": [
+            [
+                "a99323d.9689ce"
+            ]
+        ]
+    },
+    {
+        "id": "a99323d.9689ce",
+        "type": "csv",
+        "z": "83a67f6d.851a9",
+        "name": "",
+        "sep": ",",
+        "hdrin": true,
+        "hdrout": "none",
+        "multi": "mult",
+        "ret": "\\r\\n",
+        "temp": "",
+        "skip": "0",
+        "strings": true,
+        "include_empty_strings": false,
+        "include_null_values": false,
+        "x": 850,
+        "y": 780,
+        "wires": [
+            [
+                "9845a50b.cbc348",
+                "25efdd33.25a3e2"
+            ]
+        ]
+    },
+    {
+        "id": "b0df43b0.4b5f9",
+        "type": "function",
+        "z": "83a67f6d.851a9",
+        "name": "",
+        "func": "// var type=global.get('type') || 0;\nglobal.set('impute',msg.impute);\n\nglobal.set('num_attrs',msg.num_attrs);\n\n// var count=global.get('type') || 0;\nglobal.set('cat_attrs',msg.cat_attrs);\n\nglobal.set(\"dat_attrs\",msg.dat_attrs);\n\nglobal.set(\"txt_attrs\",msg.txt_attrs);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 520,
+        "y": 580,
+        "wires": [
+            [
+                "97bf5531.2b7f18"
+            ]
+        ]
+    },
+    {
+        "id": "37c66d1b.c8bc92",
+        "type": "function",
+        "z": "83a67f6d.851a9",
+        "name": "",
+        "func": "msg.payload= {\"num_attrs\":global.get('num_attrs'),\"cat_attrs\":global.get('cat_attrs'),\"dat_attrs\":global.get('dat_attrs'),\"txt_attrs\":global.get('txt_attrs'),\"impute\":global.get(\"impute\")}\n\n// msg.payload=JSON.stringify(msg.json_obj)\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 260,
+        "y": 720,
+        "wires": [
+            [
+                "1674a034.063b"
+            ]
+        ]
+    },
+    {
+        "id": "dca7316.9871cd",
+        "type": "ui_button",
+        "z": "83a67f6d.851a9",
+        "name": "Clean_dataframe",
+        "group": "9b5fdfc0.353aa",
+        "order": 13,
+        "width": 3,
+        "height": 1,
+        "passthru": false,
+        "label": "Clean_dataframe",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "",
+        "x": 90,
+        "y": 720,
+        "wires": [
+            [
+                "37c66d1b.c8bc92"
+            ]
+        ]
+    },
+    {
+        "id": "27b8903c.416dd",
+        "type": "ui_template",
+        "z": "83a67f6d.851a9",
+        "group": "9b5fdfc0.353aa",
+        "name": "",
+        "order": 4,
+        "width": 3,
+        "height": 1,
+        "format": "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css\">\n<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js\"></script>\n<script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js\"></script>\n\n\n<style>\nbody {font-family: Arial, Helvetica, sans-serif;}\n\n.caret.caret-up {\n    border-top-width: 0;\n    border-bottom: 4px solid #fff;\n  }\n\n/* The Modal (background) */\n.modal {\n    display: none; /* Hidden by default */\n    position: fixed; \n    opacity:0.99;\n    z-index: 100; /* Sit on top */\n    padding-top: 25px; /* Location of the box */\n    left: 0;\n    top: 0;\n    width: 100%; /* Full width */\n    height: 100%; /* Full height */\n    overflow: auto; /* Enable scroll if needed */\n    background-color: rgb(0,0,0); /* Fallback color */\n    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */\n}\n.modal-button {\n    \n  background-color: #0094ce; /* blue */\n  width: 100%;\n  overflow: auto;\n  height: 100%;\n  border: none;\n  color: white;\n  padding: 0px 0px;\n  text-align: center;\n  text-decoration: none;\n  display: inline-block;\n  font-size: 16px;\n}\n/* Modal Content */\n.modal-content {\n    position: relative;\n    overflow:auto;\n    background-color: #fefefe;\n    margin: auto;\n    padding: 0;\n    border: 1px solid #888;\n    width: 50%;\n    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);\n    -webkit-animation-name: animatetop;\n    -webkit-animation-duration: 0.4s;\n    animation-name: animatetop;\n    animation-duration: 0.4s\n}\n\n\n.dropdown-check-list  {\n  display: inline-block;\n}\n\n.dropdown-content-list1 {\n  display: inline-block;\n}\n.dropdown-check-list2 {\n  display: inline-block;\n}\n.dropdown-check-list3 {\n  display: inline-block;\n}\n\n.dropdown-check-list  .anchor  {\n  position: relative;\n  overflow:auto;\n  cursor: pointer;\n  display: inline-block;\n  padding: 5px 50px 5px 10px;\n  border: 1px solid #ccc;\n}\n\n.dropdown-content-list1 .anchor1 {\n  position: relative;\n  cursor: pointer;\n  overflow:auto;\n  display: inline-block;\n  padding: 5px 50px 5px 10px;\n  border: 1px solid #ccc;\n}\n.dropdown-check-list2 .anchor2 {\n  position: relative;\n  cursor: pointer;\n  overflow:auto;\n  display: inline-block;\n  padding: 5px 50px 5px 10px;\n  border: 1px solid #ccc;\n}\n.dropdown-check-list3 .anchor3 {\n  position: relative;\n  cursor: pointer;\n  overflow:auto;\n  display: inline-block;\n  padding: 5px 50px 5px 10px;\n  border: 1px solid #ccc;\n}\n\n.dropdown-check-list .anchor:after {\n  position: absolute;\n  overflow:auto;\n  content: \"\";\n  border-left: 2px solid black;\n  border-top: 2px solid black;\n  padding: 5px;\n  right: 10px;\n  top: 20%;\n  -moz-transform: rotate(-135deg);\n  -ms-transform: rotate(-135deg);\n  -o-transform: rotate(-135deg);\n  -webkit-transform: rotate(-135deg);\n  transform: rotate(-135deg);\n}\n.dropdown-content-list1 .anchor1:after {\n  position: absolute;\n  overflow:auto;\n  content: \"\";\n  border-left: 2px solid black;\n  border-top: 2px solid black;\n  padding: 5px;\n  right: 10px;\n  top: 20%;\n  -moz-transform: rotate(-135deg);\n  -ms-transform: rotate(-135deg);\n  -o-transform: rotate(-135deg);\n  -webkit-transform: rotate(-135deg);\n  transform: rotate(-135deg);\n}\n.dropdown-check-list2 .anchor2:after {\n  position: absolute;\n  overflow:auto;\n  content: \"\";\n  border-left: 2px solid black;\n  border-top: 2px solid black;\n  padding: 5px;\n  right: 10px;\n  top: 20%;\n  -moz-transform: rotate(-135deg);\n  -ms-transform: rotate(-135deg);\n  -o-transform: rotate(-135deg);\n  -webkit-transform: rotate(-135deg);\n  transform: rotate(-135deg);\n}\n.dropdown-check-list3 .anchor3:after {\n  position: absolute;\n  overflow:auto;\n  content: \"\";\n  border-left: 2px solid black;\n  border-top: 2px solid black;\n  padding: 5px;\n  right: 10px;\n  top: 20%;\n  -moz-transform: rotate(-135deg);\n  -ms-transform: rotate(-135deg);\n  -o-transform: rotate(-135deg);\n  -webkit-transform: rotate(-135deg);\n  transform: rotate(-135deg);\n}\n\n.dropdown-check-list .anchor:active:after {\n  right: 8px;\n  top: 21%;\n}\n.dropdown-content-list1 .anchor1:active:after {\n  right: 8px;\n  top: 21%;\n}\n.dropdown-check-list2 .anchor2:active:after {\n  right: 8px;\n  top: 21%;\n}\n.dropdown-check-list3 .anchor3:active:after {\n  right: 8px;\n  top: 21%;\n}\n\n\n\n/*ul.items {*/\n/*  padding: 2px;*/\n/*  display: none;*/\n/*  overflow:auto;*/\n/*  margin: 0;*/\n/*  border: 1px solid #ccc;*/\n/*  border-top: none;*/\n/*}*/\n .dropdown-check-list1 ul.items1 {\n  padding: 2px;\n  display: none;\n  overflow:auto;\n  margin: 0;\n  border: 1px solid #ccc;\n  border-top: none;\n}\n.dropdown-check-list2 ul.items {\n  padding: 2px;\n  overflow:auto;\n  display: none;\n  margin: 0;\n  border: 1px solid #ccc;\n  border-top: none;\n}\n.dropdown-check-list3 ul.items {\n  padding: 2px;\n  display: none;\n  overflow:auto;\n  margin: 0;\n  border: 1px solid #ccc;\n  border-top: none;\n}\n\n\n\nul {\n  list-style: none;\n}\n\n.dropdown-check-list.visible .anchor {\n  color: #0094ff;\n  overflow:auto;\n}\n.dropdown-content-list1.visible .anchor1 {\n  color: #0094ff;\n  overflow:auto;\n}\n.dropdown-check-list2.visible .anchor2 {\n  color: #0094ff;\n  overflow:auto;\n}\n.dropdown-check-list3.visible .anchor3 {\n  color: #0094ff;\n  overflow:auto;\n}\n\n.dropdown-check-list.visible .items {\n  display: block;\n  overflow:auto;\n}\n.dropdown-content-list1.visible .items1 {\n  display: block;\n  overflow:auto;\n}\n.dropdown-check-list2.visible .items2 {\n  display: block;\n  overflow:auto;\n}\n.dropdown-check-list3.visible .items3 {\n  display: block;\n  overflow:auto;\n}\n\n/* Add Animation */\n@-webkit-keyframes animatetop {\n    from {top:-300px; opacity:0} \n    to {top:0; opacity:1}\n}\n\n@keyframes animatetop {\n    from {top:-300px; opacity:0}\n    to {top:0; opacity:1}\n}\n\n/* The Close Button */\n.close {\n    color: black;\n    float: right;\n    font-size: 28px;\n    font-weight: bold;\n}\n\n.close:hover,\n.close:focus {\n    color: black;\n    text-decoration: none;\n    cursor: pointer;\n}\n\n.modal-header {\n    padding: 2px 16px;\n    color:#03A9F4;\n    \n}\n\n.modal-body {padding: 2px 16px;}\n\n.modal-footer {\n    padding: 2px 16px;\n    \n}\n</style>\n\n<!-- Trigger/Open The Modal -->\n<!--<md-button class=\"modal-button\" href=\"{{'#myModal_'+$id}}\">CLEAN_CONFIG</md-button>-->\n<button class=\"modal-button\" href=\"{{'#myModal_'+$id}}\">CLEAN_CONFIG</button>\n\n<!-- The Modal -->\n<div id=\"{{'myModal_'+$id}}\" class=\"modal\">\n\n  <!-- Modal content -->\n  <div class=\"modal-content\">\n    <div class=\"modal-header\">\n      <span class=\"close\">&times;</span>\n      <h2>Clean_Data Configuration</h2>\n    </div>\n    <div class=\"modal-body\">\n\n      <div>\n          <label for=\"impute\">Select imputation:</label>\n\n            <select ng-model=\"impu\" name=\"impute\" id=\"imp\">\n              <option value=\"true\">True</option>\n              <option value=\"false\">False</option>\n\n            </select>\n      </div>\n\n      <div layout=\"row\" layout-align=\"center\" style=\"margin-top: 10px\">\n          \n        <div layout=\"column\" layout-align=\"center\" style=\"margin-top: 10px\">\n          <div id=\"list1\" class=\"dropdown-check-list\" tabindex=\"100\" >\n          <span class=\"anchor\">Select Numerical Attributes</span>\n          <ul class=\"items\" id=\"num\">\n\n          </ul>\n          </div>\n          \n          <button onclick=\"myFunction1()\" class=\"dropbtn\">Next</button>\n        </div>\n        \n        \n        \n        \n        <div layout=\"column\" layout-align=\"center\" style=\"margin-top: 10px\">\n          <div id=\"list2\" class=\"dropdown-content-list1\" tabindex=\"100\">\n          <span class=\"anchor1\" >Select Categorical Attributes</span>\n          <ul class=\"items1\" id=\"cat\">\n\n          </ul>\n          </div>\n          \n          <button onclick=\"myFunction2()\" class=\"dropbtn\">Next</button>\n        </div>\n        \n        <div layout=\"column\" layout-align=\"center\" style=\"margin-top: 10px\">\n          <div id=\"list3\" class=\"dropdown-check-list2\" tabindex=\"100\">\n          <span class=\"anchor2\">Select Date Attributes</span>\n          <ul class=\"items2\" id=\"date\">\n\n          </ul>\n          </div>\n          \n          <button onclick=\"myFunction3()\" class=\"dropbtn\">Next</button>\n        </div>\n        \n        <div layout=\"column\" layout-align=\"center\" style=\"margin-top: 10px\">\n          <div id=\"list4\" class=\"dropdown-check-list3\" tabindex=\"100\">\n          <span class=\"anchor3\">Select Text Attributes</span>\n          <ul class=\"items3\" id=\"text\">\n   \n          </ul>\n          </div>\n          \n          <!--<button onclick=\"myFunction4()\" class=\"dropbtn\">Next</button>-->\n        </div>\n          \n          \n          \n          \n          \n          \n          \n      </div>\n      \n      <div>\n          <!--<button onclick=\"confirmation()\" class=\"dropbtn\">OK, Set the Configuration</button>-->\n        <!--Qty of silly hats-->\n  <!--<input type=\"number\" ng-model=\"msg.payload\" name=\"quantity\" min=\"0\" max=\"1000\">-->\n  <md-button ng-click=\"confirmation()\">Configuration Done.</md-button>\n  \n</div>\n    </div>\n\n  </div>\n\n</div>\n\n<script>\n// Get the button that opens the modal\nvar btn = document.querySelectorAll(\"button.modal-button\");\n\n// All page modals\nvar modals = document.querySelectorAll('.modal');\n\n// Get the <span> element that closes the modal\nvar spans = document.getElementsByClassName(\"close\");\n\nvar select = document.getElementById(\"num_fields\"); \n// console.log(msg.payload,msg);\n\n// function newchange(event){\n// var data=event.target.value;\n// console.log(data);\n// }\n\n\nvar ul= document.getElementById(\"num\");\nvar ul1 = document.getElementById(\"cat\");\nvar ul2 = document.getElementById(\"date\");\nvar ul3 = document.getElementById(\"text\");\nvar num_options;\nvar num_options1;\nvar num_options2;\nvar num_options3;\n\n(function(scope) {\n    scope.impu='true'\n    // watch msg object from Node-RED\n    scope.$watch('msg', function(msg) {\n        // new message received\n        var options = msg.payload;\n        num_options = options;\n        console.log(options);\n        console.log(num_options);\n        for(var i = 0; i < options.length; i++) {\n            var opt = options[i];\n            var li = document.createElement('li');\n            var input = document.createElement('input');\n            input.type = \"checkbox\";\n            input.name=\"numerical\";\n            input.value=opt\n            li.appendChild(input);\n            li.appendChild(document.createTextNode(opt));\n            ul.appendChild(li);\n            console.log(ul);\n        }\n        });\n    \n    \n    scope.confirmation=function(){\n        \n        scope.num_selected = [];\n        scope.cat_selected = [];\n        scope.dat_selected = [];\n        scope.txt_selected = [];\n        scope.num_checkboxes = document.getElementsByName('numerical');\n        scope.cat_checkboxes = document.getElementsByName('categorical');\n        scope.dat_checkboxes = document.getElementsByName('date');\n        scope.txt_checkboxes = document.getElementsByName('text');\n        for (var checkbox_1 of scope.num_checkboxes) {\n        if (checkbox_1.checked)\n          scope.num_selected.push(checkbox_1.value);\n          \n        }\n        for (var checkbox_2 of scope.cat_checkboxes) {\n        if (checkbox_2.checked)\n          scope.cat_selected.push(checkbox_2.value);\n          \n        }\n        for (var checkbox_3 of scope.dat_checkboxes) {\n        if (checkbox_3.checked)\n          scope.dat_selected.push(checkbox_3.value);\n          \n        }\n        for (var checkbox_4 of scope.txt_checkboxes) {\n        if (checkbox_4.checked)\n          scope.txt_selected.push(checkbox_4.value);\n          \n        }\n        scope.send({ impute: scope.impu, num_attrs: scope.num_selected , cat_attrs:scope.cat_selected, dat_attrs:scope.dat_selected, txt_attrs:scope.txt_selected});\n\n}    \n        \n})(scope);\n\n\n\n\n\nfunction myFunction1() {\n//   document.getElementById(\"list1\").classList.toggle(\"hide\");\n  \n  \n  var selected = [];\n  var checkboxes = document.getElementsByName('numerical');\n  for (var checkbox of checkboxes) {\n    if (checkbox.checked)\n      selected.push(checkbox.value);\n      \n    }\n  console.log(selected);\n  var subtractTwoArrays = (arr1, arr2) => arr1.filter( el => !arr2.includes(el) );\n  var x = subtractTwoArrays(num_options, selected);\n  num_options1=x;\n  console.log(x);\n  for(var i = 0; i < x.length; i++) {\n            var opt = x[i];\n            var li = document.createElement('li');\n            var input = document.createElement('input');\n            input.type = \"checkbox\";\n            input.name=\"categorical\";\n            input.value=opt\n            li.appendChild(input);\n            li.appendChild(document.createTextNode(opt));\n            \n            ul1.appendChild(li);\n            console.log(ul1);\n            \n        }\n  \n  document.getElementById(\"list2\").classList.toggle(\"show\");\n//   document.getElementById(\"list3\").classList.toggle(\"hide\");\n//   document.getElementById(\"list4\").classList.toggle(\"hide\");\n  \n  \n  \n}\n\n\n\n\nfunction myFunction2() {\n  document.getElementById(\"list2\").classList.toggle(\"hide\");\n//   document.getElementById(\"list2\").style.display='none';\n  \n  var selected = [];\n  var checkboxes = document.getElementsByName('categorical');\n  for (var checkbox of checkboxes) {\n    if (checkbox.checked)\n      selected.push(checkbox.value);\n      \n    }\n  console.log(selected);\n  var subtractTwoArrays = (arr1, arr2) => arr1.filter( el => !arr2.includes(el) );\n        // const x => ddTemp.filter( el => !selected.includes(el) );\n  var x = subtractTwoArrays(num_options1, selected);\n  num_options2=x;\n  console.log(x);\n  \n  for(var i = 0; i < x.length; i++) {\n            var opt = x[i];\n            var li = document.createElement('li');\n            var input = document.createElement('input');\n            input.type = \"checkbox\";\n            input.name=\"date\";\n            input.value=opt\n            li.appendChild(input);\n            li.appendChild(document.createTextNode(opt));\n            \n            ul2.appendChild(li);\n            console.log(ul2);\n            \n        }\n  \n//   document.getElementById(\"list2\").classList.toggle(\"show\");\n  document.getElementById(\"list3\").classList.toggle(\"show\");\n//   document.getElementById(\"list4\").classList.toggle(\"hide\");\n  \n  \n  \n}\n\n\n\n\n\nfunction myFunction3() {\n  document.getElementById(\"list3\").style.display='none';\n  \n  \n  var selected = [];\n  var checkboxes = document.getElementsByName('date');\n  for (var checkbox of checkboxes) {\n    if (checkbox.checked)\n      selected.push(checkbox.value);\n      \n    }\n  console.log(selected);\n  var subtractTwoArrays = (arr1, arr2) => arr1.filter( el => !arr2.includes(el) );\n        // const x => ddTemp.filter( el => !selected.includes(el) );\n  var x = subtractTwoArrays(num_options2, selected);\n  num_options3=x;\n  console.log(x);\n  \n  for(var i = 0; i < x.length; i++) {\n            var opt = x[i];\n            var li = document.createElement('li');\n            var input = document.createElement('input');\n            input.type = \"checkbox\";\n            input.name=\"text\";\n            input.value=opt\n            li.appendChild(input);\n            li.appendChild(document.createTextNode(opt));\n            \n            ul3.appendChild(li);\n            console.log(ul3);\n            \n        }\n  \n//   document.getElementById(\"list2\").classList.toggle(\"show\");\n//   document.getElementById(\"list3\").classList.toggle(\"show\");\n//   document.getElementById(\"list4\").classList.toggle(\"hide\");\n\n\n}\n\n\n\n\n\n\n\n\n// $(function() {\n//     $('select').multipleSelect({\n//       multiple: true,\n//       multipleWidth: 60\n//     })\n//   })\n\n// function getStates(input){\n//     console.log(input)\n// }\n\nfunction changeDD2()\n    {   \n        // var ddTemp1 = document.getElementById('num_fields');\n        \n        var ddTemp=new Array();\n        $(\"#num_fields option\").each(function()\n        {\n            ddTemp.push($(this).text());\n        });\n        var dd2Temp = document.getElementById('cat_fields');\n        // console.log(ddTemp1);\n        // var ddTemp = [document.getElementById('num_fields')];\n        console.log(ddTemp);\n        var selected = [];\n        // var x=[];\n\n        \n        for (var option of document.getElementById('num_fields').options) {\n            if (option.selected) {\n              selected.push(option.value);\n            }\n          }\n        const subtractTwoArrays = (arr1, arr2) => arr1.filter( el => !arr2.includes(el) );\n        // const x => ddTemp.filter( el => !selected.includes(el) );\n        const x = subtractTwoArrays(ddTemp, selected);\n        // for(var i = 0;i<=selected.length-1;i++)\n        //     x.push(ddTemp[i] - selected[i]);\n        console.log(x);\n\n        for(var i=1;i<x.length;i++)\n        {\n\n            var opt = x[i];\n            var el = document.createElement(\"option\");\n            el.textContent = opt;\n            el.value = opt;\n            console.log(el)\n            dd2Temp.add(el);\n        }\n        console.log(dd2Temp)\n\n    }\n\n\n// var options = {{{msg.columns}}};\nvar checkList = document.getElementById('list1');\ncheckList.getElementsByClassName('anchor')[0].onclick = function(evt) {\n  if (checkList.classList.contains('visible'))\n    checkList.classList.remove('visible');\n  else\n    checkList.classList.add('visible');\n}\n\n\n\n// When the user clicks the button, open the modal\nfor (var i = 0; i < btn.length; i++) {\n btn[i].onclick = function(e) {\n    e.preventDefault();\n    modal = document.querySelector(e.target.getAttribute(\"href\"));\n    modal.style.display = \"block\";\n }\n}\n\n// When the user clicks on <span> (x), close the modal\nfor (var i = 0; i < spans.length; i++) {\n spans[i].onclick = function() {\n    for (var index in modals) {\n      if (typeof modals[index].style !== 'undefined') modals[index].style.display = \"none\";    \n    }\n }\n}\n\n// When the user clicks anywhere outside of the modal, close it\nwindow.onclick = function(event) {\n    if (event.target.classList.contains('modal')) {\n     for (var index in modals) {\n      if (typeof modals[index].style !== 'undefined') modals[index].style.display = \"none\";    \n     }\n    }\n}\n</script>",
+        "storeOutMessages": false,
+        "fwdInMessages": false,
+        "resendOnRefresh": false,
+        "templateScope": "local",
+        "x": 680,
+        "y": 500,
+        "wires": [
+            [
+                "8a48fa9d.879138",
+                "b0df43b0.4b5f9"
+            ]
+        ]
+    },
+    {
+        "id": "65ffee9f.b4311",
+        "type": "file in",
+        "z": "83a67f6d.851a9",
+        "name": "Read File",
+        "filename": "df_tmp.csv",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "x": 220,
+        "y": 500,
+        "wires": [
+            [
+                "687d4e55.0ba64"
+            ]
+        ]
+    },
+    {
+        "id": "687d4e55.0ba64",
+        "type": "csv",
+        "z": "83a67f6d.851a9",
+        "name": "",
+        "sep": ",",
+        "hdrin": true,
+        "hdrout": "none",
+        "multi": "mult",
+        "ret": "\\r\\n",
+        "temp": "",
+        "skip": "0",
+        "strings": true,
+        "include_empty_strings": false,
+        "include_null_values": false,
+        "x": 350,
+        "y": 500,
+        "wires": [
+            [
+                "4156429a.6872cc"
+            ]
+        ]
+    },
+    {
+        "id": "4156429a.6872cc",
+        "type": "function",
+        "z": "83a67f6d.851a9",
+        "name": "",
+        "func": "var str=msg.columns\nmsg.payload = str.split( \",\" )\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 480,
+        "y": 500,
+        "wires": [
+            [
+                "27b8903c.416dd",
+                "85963759.f4c7e8"
+            ]
+        ]
+    },
+    {
+        "id": "85963759.f4c7e8",
+        "type": "debug",
+        "z": "83a67f6d.851a9",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 690,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "8a48fa9d.879138",
+        "type": "debug",
+        "z": "83a67f6d.851a9",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 820,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "97bf5531.2b7f18",
+        "type": "debug",
+        "z": "83a67f6d.851a9",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 705,
+        "y": 594,
+        "wires": []
+    },
+    {
+        "id": "9845a50b.cbc348",
+        "type": "ui_table",
+        "z": "83a67f6d.851a9",
+        "group": "88f20730.ab0ff8",
+        "name": "clean_df_table",
+        "order": 1,
+        "width": 27,
+        "height": 10,
+        "columns": [],
+        "outputs": 0,
+        "cts": false,
+        "x": 880,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "1674a034.063b",
+        "type": "json",
+        "z": "83a67f6d.851a9",
+        "name": "",
+        "property": "payload",
+        "action": "str",
+        "pretty": false,
+        "x": 430,
+        "y": 720,
+        "wires": [
+            [
+                "e29d0cd9.7600e"
+            ]
+        ]
+    },
+    {
+        "id": "e29d0cd9.7600e",
+        "type": "pythonshell in",
+        "z": "83a67f6d.851a9",
+        "name": "",
+        "pyfile": "C:\\\\Users\\\\likhi\\\\Desktop\\\\clean_df.py",
+        "virtualenv": "",
+        "continuous": false,
+        "stdInData": false,
+        "x": 640,
+        "y": 720,
+        "wires": [
+            [
+                "6db85d6c.4dfb74",
+                "a38d01b0.176fd"
+            ]
+        ]
+    },
+    {
+        "id": "23a85925.c35f56",
+        "type": "complete",
+        "z": "83a67f6d.851a9",
+        "name": "",
+        "scope": [
+            "f84a7a33.168db8"
+        ],
+        "uncaught": false,
+        "x": 70,
+        "y": 440,
+        "wires": [
+            [
+                "65ffee9f.b4311"
+            ]
+        ]
+    },
+    {
+        "id": "9de157ae.393c08",
+        "type": "function",
+        "z": "83a67f6d.851a9",
+        "name": "",
+        "func": "msg.read=\"True\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 1020,
+        "y": 500,
+        "wires": [
+            [
+                "48e9e1e4.07de9"
+            ]
+        ]
+    },
+    {
+        "id": "a38d01b0.176fd",
+        "type": "function",
+        "z": "83a67f6d.851a9",
+        "name": "",
+        "func": "msg.clean=\"True\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 990,
+        "y": 640,
+        "wires": [
+            [
+                "48e9e1e4.07de9"
+            ]
+        ]
+    },
+    {
+        "id": "48e9e1e4.07de9",
+        "type": "function",
+        "z": "83a67f6d.851a9",
+        "name": "",
+        "func": "if (msg.read === \"True\") {\n    msg.payload = {\"group\":{\"hide\":[\"AI-STARTER_clean\",\"AI-STARTER_mongo\"],\"show\":[\"AI-STARTER_read\"]}};\n    return msg;\n}\nif (msg.clean === \"True\") {\n    msg.payload = {\"group\":{\"hide\":[\"AI-STARTER_read\",\"AI-STARTER_mongo\"],\"show\":[\"AI-STARTER_clean\"]}};\n    return msg;\n}\nif (msg.mongo === \"True\") {\n    msg.payload = {\"group\":{\"hide\":[\"AI-STARTER_read\",\"AI-STARTER_clean\"],\"show\":[\"AI-STARTER_mongo\"]}};\n    return msg;\n}\nreturn null;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 1190,
+        "y": 560,
+        "wires": [
+            [
+                "f4331d9f.5073"
+            ]
+        ]
+    },
+    {
+        "id": "cc6599f1.a577b8",
+        "type": "change",
+        "z": "83a67f6d.851a9",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "read",
+                "pt": "msg",
+                "to": "False",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1090,
+        "y": 420,
+        "wires": [
+            [
+                "9de157ae.393c08"
+            ]
+        ]
+    },
+    {
+        "id": "25efdd33.25a3e2",
+        "type": "change",
+        "z": "83a67f6d.851a9",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "clean",
+                "pt": "msg",
+                "to": "False",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1130,
+        "y": 760,
+        "wires": [
+            [
+                "a38d01b0.176fd"
+            ]
+        ]
+    },
+    {
+        "id": "f4331d9f.5073",
+        "type": "ui_ui_control",
+        "z": "83a67f6d.851a9",
+        "name": "",
+        "events": "all",
+        "x": 1370,
+        "y": 560,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7f0c80e0.43436",
+        "type": "pythonshell in",
+        "z": "83a67f6d.851a9",
+        "name": "",
+        "pyfile": "C:\\\\Users\\\\likhi\\\\Desktop\\\\explore_data.py",
+        "virtualenv": "",
+        "continuous": false,
+        "stdInData": false,
+        "x": 360,
+        "y": 980,
+        "wires": [
+            [
+                "6ff16191.353c9"
+            ]
+        ]
+    },
+    {
+        "id": "6ff16191.353c9",
+        "type": "debug",
+        "z": "83a67f6d.851a9",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 550,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "a31cf628.e2b3b8",
+        "type": "ui_button",
+        "z": "83a67f6d.851a9",
+        "name": "",
+        "group": "9b5fdfc0.353aa",
+        "order": 6,
+        "width": 4,
+        "height": 1,
+        "passthru": false,
+        "label": "Explore Data",
+        "tooltip": "To generate insights from data",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "",
+        "x": 100,
+        "y": 980,
+        "wires": [
+            [
+                "7f0c80e0.43436"
+            ]
+        ]
+    },
+    {
+        "id": "18ed30a7.ad48cf",
+        "type": "debug",
+        "z": "83a67f6d.851a9",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 470,
+        "y": 1100,
+        "wires": []
+    },
+    {
+        "id": "34905106.8bb79e",
+        "type": "function",
+        "z": "83a67f6d.851a9",
+        "name": "",
+        "func": "// var type=global.get('type') || 0;\n// global.set('type',msg.type,\"fileStore\");\n\n// var count=global.get('type') || 0;\nglobal.set(\"connection_string\",msg.conn,\"fileStore\");\n\nglobal.set(\"collection_name\",msg.coll,\"fileStore\")\n\nglobal.set(\"database_name\",msg.database,\"fileStore\")\n\nglobal.set(\"data_source\",msg.src,\"fileStore\")\n\nglobal.set(\"cleaner\",msg.cleaner_used,\"fileStore\")\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 440,
+        "y": 1200,
+        "wires": [
+            [
+                "99a3616c.228a9"
+            ]
+        ]
+    },
+    {
+        "id": "99a3616c.228a9",
+        "type": "debug",
+        "z": "83a67f6d.851a9",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 610,
+        "y": 1200,
+        "wires": []
+    },
+    {
+        "id": "646b4b93.4bef34",
+        "type": "ui_button",
+        "z": "83a67f6d.851a9",
+        "name": "Insert Data",
+        "group": "9b5fdfc0.353aa",
+        "order": 15,
+        "width": 3,
+        "height": 1,
+        "passthru": false,
+        "label": "Insert Data",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "",
+        "x": 90,
+        "y": 1360,
+        "wires": [
+            [
+                "64888c7e.14c244"
+            ]
+        ]
+    },
+    {
+        "id": "dc55a650.ad66d8",
+        "type": "debug",
+        "z": "83a67f6d.851a9",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 820,
+        "y": 1360,
+        "wires": []
+    },
+    {
+        "id": "64888c7e.14c244",
+        "type": "function",
+        "z": "83a67f6d.851a9",
+        "name": "",
+        "func": "msg.payload= {\n    \"connection_string\":global.get('connection_string'),\n    \"collection_name\":global.get('collection_name'),\n    \"database_name\":global.get('database_name'),\n    \"data_source\":global.get('data_source'),\n    \"cleaner\":global.get('cleaner')}\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 270,
+        "y": 1360,
+        "wires": [
+            [
+                "8887ca61.2cf0a8"
+            ]
+        ]
+    },
+    {
+        "id": "8887ca61.2cf0a8",
+        "type": "json",
+        "z": "83a67f6d.851a9",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": true,
+        "x": 440,
+        "y": 1360,
+        "wires": [
+            [
+                "f3d19e3f.c98a6"
+            ]
+        ]
+    },
+    {
+        "id": "f3d19e3f.c98a6",
+        "type": "pythonshell in",
+        "z": "83a67f6d.851a9",
+        "name": "",
+        "pyfile": "C:\\\\Users\\\\likhi\\\\Desktop\\\\mongoDB.py",
+        "virtualenv": "",
+        "continuous": false,
+        "stdInData": false,
+        "x": 630,
+        "y": 1360,
+        "wires": [
+            [
+                "dc55a650.ad66d8",
+                "eb68fa4.447c208",
+                "aa619cd6.62992",
+                "d1fb2b81.e15da8"
+            ]
+        ]
+    },
+    {
+        "id": "cb15c35b.651d8",
+        "type": "ui_template",
+        "z": "83a67f6d.851a9",
+        "group": "9b5fdfc0.353aa",
+        "name": "Mongo_template",
+        "order": 8,
+        "width": 3,
+        "height": 1,
+        "format": "\n\n<style>\nbody {font-family: Arial, Helvetica, sans-serif;}\n\n.caret.caret-up {\n    border-top-width: 0;\n    border-bottom: 4px solid #fff;\n  }\n\n/* The Modal (background) */\n.modal {\n    display: none; /* Hidden by default */\n    position: fixed; \n    opacity:0.99;\n    z-index: 100; /* Sit on top */\n    padding-top: 25px; /* Location of the box */\n    left: 0;\n    top: 0;\n    width: 100%; /* Full width */\n    height: 100%; /* Full height */\n    overflow: auto; /* Enable scroll if needed */\n    background-color: rgb(0,0,0); /* Fallback color */\n    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */\n}\n.modal-button {\n    \n  background-color: #0094ce; /* blue */\n  width: 100%;\n  overflow: auto;\n  height: 100%;\n  border: none;\n  color: white;\n  padding: 0px 0px;\n  text-align: center;\n  text-decoration: none;\n  display: inline-block;\n  font-size: 16px;\n}\n/* Modal Content */\n.modal-content {\n    position: relative;\n    overflow:auto;\n    background-color: #fefefe;\n    margin: auto;\n    padding: 0;\n    border: 1px solid #888;\n    width: 50%;\n    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);\n    -webkit-animation-name: animatetop;\n    -webkit-animation-duration: 0.4s;\n    animation-name: animatetop;\n    animation-duration: 0.4s\n}\n\n\n.dropdown-check-list  {\n  display: inline-block;\n}\n\n.dropdown-content-list1 {\n  display: inline-block;\n}\n.dropdown-check-list2 {\n  display: inline-block;\n}\n.dropdown-check-list3 {\n  display: inline-block;\n}\n\n.dropdown-check-list  .anchor  {\n  position: relative;\n  overflow:auto;\n  cursor: pointer;\n  display: inline-block;\n  padding: 5px 50px 5px 10px;\n  border: 1px solid #ccc;\n}\n\n.dropdown-content-list1 .anchor1 {\n  position: relative;\n  cursor: pointer;\n  overflow:auto;\n  display: inline-block;\n  padding: 5px 50px 5px 10px;\n  border: 1px solid #ccc;\n}\n.dropdown-check-list2 .anchor2 {\n  position: relative;\n  cursor: pointer;\n  overflow:auto;\n  display: inline-block;\n  padding: 5px 50px 5px 10px;\n  border: 1px solid #ccc;\n}\n.dropdown-check-list3 .anchor3 {\n  position: relative;\n  cursor: pointer;\n  overflow:auto;\n  display: inline-block;\n  padding: 5px 50px 5px 10px;\n  border: 1px solid #ccc;\n}\n\n.dropdown-check-list .anchor:after {\n  position: absolute;\n  overflow:auto;\n  content: \"\";\n  border-left: 2px solid black;\n  border-top: 2px solid black;\n  padding: 5px;\n  right: 10px;\n  top: 20%;\n  -moz-transform: rotate(-135deg);\n  -ms-transform: rotate(-135deg);\n  -o-transform: rotate(-135deg);\n  -webkit-transform: rotate(-135deg);\n  transform: rotate(-135deg);\n}\n.dropdown-content-list1 .anchor1:after {\n  position: absolute;\n  overflow:auto;\n  content: \"\";\n  border-left: 2px solid black;\n  border-top: 2px solid black;\n  padding: 5px;\n  right: 10px;\n  top: 20%;\n  -moz-transform: rotate(-135deg);\n  -ms-transform: rotate(-135deg);\n  -o-transform: rotate(-135deg);\n  -webkit-transform: rotate(-135deg);\n  transform: rotate(-135deg);\n}\n.dropdown-check-list2 .anchor2:after {\n  position: absolute;\n  overflow:auto;\n  content: \"\";\n  border-left: 2px solid black;\n  border-top: 2px solid black;\n  padding: 5px;\n  right: 10px;\n  top: 20%;\n  -moz-transform: rotate(-135deg);\n  -ms-transform: rotate(-135deg);\n  -o-transform: rotate(-135deg);\n  -webkit-transform: rotate(-135deg);\n  transform: rotate(-135deg);\n}\n.dropdown-check-list3 .anchor3:after {\n  position: absolute;\n  overflow:auto;\n  content: \"\";\n  border-left: 2px solid black;\n  border-top: 2px solid black;\n  padding: 5px;\n  right: 10px;\n  top: 20%;\n  -moz-transform: rotate(-135deg);\n  -ms-transform: rotate(-135deg);\n  -o-transform: rotate(-135deg);\n  -webkit-transform: rotate(-135deg);\n  transform: rotate(-135deg);\n}\n\n.dropdown-check-list .anchor:active:after {\n  right: 8px;\n  top: 21%;\n}\n.dropdown-content-list1 .anchor1:active:after {\n  right: 8px;\n  top: 21%;\n}\n.dropdown-check-list2 .anchor2:active:after {\n  right: 8px;\n  top: 21%;\n}\n.dropdown-check-list3 .anchor3:active:after {\n  right: 8px;\n  top: 21%;\n}\n\n\n\n/*ul.items {*/\n/*  padding: 2px;*/\n/*  display: none;*/\n/*  overflow:auto;*/\n/*  margin: 0;*/\n/*  border: 1px solid #ccc;*/\n/*  border-top: none;*/\n/*}*/\n .dropdown-check-list1 ul.items1 {\n  padding: 2px;\n  display: none;\n  overflow:auto;\n  margin: 0;\n  border: 1px solid #ccc;\n  border-top: none;\n}\n.dropdown-check-list2 ul.items {\n  padding: 2px;\n  overflow:auto;\n  display: none;\n  margin: 0;\n  border: 1px solid #ccc;\n  border-top: none;\n}\n.dropdown-check-list3 ul.items {\n  padding: 2px;\n  display: none;\n  overflow:auto;\n  margin: 0;\n  border: 1px solid #ccc;\n  border-top: none;\n}\n\n\n\nul {\n  list-style: none;\n}\n\n.dropdown-check-list.visible .anchor {\n  color: #0094ff;\n  overflow:auto;\n}\n.dropdown-content-list1.visible .anchor1 {\n  color: #0094ff;\n  overflow:auto;\n}\n.dropdown-check-list2.visible .anchor2 {\n  color: #0094ff;\n  overflow:auto;\n}\n.dropdown-check-list3.visible .anchor3 {\n  color: #0094ff;\n  overflow:auto;\n}\n\n.dropdown-check-list.visible .items {\n  display: block;\n  overflow:auto;\n}\n.dropdown-content-list1.visible .items1 {\n  display: block;\n  overflow:auto;\n}\n.dropdown-check-list2.visible .items2 {\n  display: block;\n  overflow:auto;\n}\n.dropdown-check-list3.visible .items3 {\n  display: block;\n  overflow:auto;\n}\n\n/* Add Animation */\n@-webkit-keyframes animatetop {\n    from {top:-300px; opacity:0} \n    to {top:0; opacity:1}\n}\n\n@keyframes animatetop {\n    from {top:-300px; opacity:0}\n    to {top:0; opacity:1}\n}\n\n/* The Close Button */\n.close {\n    color: black;\n    float: right;\n    font-size: 28px;\n    font-weight: bold;\n}\n\n.close:hover,\n.close:focus {\n    color: black;\n    text-decoration: none;\n    cursor: pointer;\n}\n\n.modal-header {\n    padding: 2px 16px;\n    color:#03A9F4;\n    \n}\n\n.modal-body {padding: 2px 16px;}\n\n.modal-footer {\n    padding: 2px 16px;\n    \n}\n</style>\n\n<!-- Trigger/Open The Modal -->\n<!--<md-button class=\"modal-button\" href=\"{{'#myModal_'+$id}}\">CLEAN_CONFIG</md-button>-->\n<button class=\"modal-button\" href=\"{{'#myModal_'+$id}}\">MONGO_CONFIG</button>\n\n<!-- The Modal -->\n<div id=\"{{'myModal_'+$id}}\" class=\"modal\">\n\n  <!-- Modal content -->\n  <div class=\"modal-content\">\n    <div class=\"modal-header\">\n      <span class=\"close\">&times;</span>\n      <h2>Mongo DB Configuration</h2>\n    </div>\n    <div class=\"modal-body\">\n\n        <div layout=\"column\" layout-align=\"center\" style=\"margin-top: 10px\">\n          <!--<label for=\"impute\">Select imputation:</label>-->\n\n          <!--  <select ng-model=\"impu\" name=\"impute\" id=\"imp\">-->\n          <!--    <option value=\"true\">True</option>-->\n          <!--    <option value=\"false\">False</option>-->\n\n          <!--  </select>-->\n      \n      \n            <label for=\"connection\">Connection String</label>\n            <input ng-model=\"conn\" id=\"connect\" name=\"connection\">\n            \n            <label for=\"collection_name\">Collection Name</label>\n            <input ng-model=\"coll\" id=\"coll_name\" name=\"collection_name\">\n            \n            <label for=\"database_name\">Database Name </label>\n            <input ng-model=\"database\" id=\"db_name\" name=\"database_name\">\n            \n            <label for=\"data_source\">Data Source</label>\n            <input ng-model=\"src\" id=\"df_source\" name=\"data_source\">\n\n                \n            <label for=\"cleaner\">choose cleaner option</label>\n            <select ng-model=\"cleaner_usage\" name=\"cleaner\" id=\"clean_used\" >\n                <option value=\"yes\">yes</option>\n                <option value=\"no\">no</option>\n            </select>\n        </div>\n\n      <!--<div layout=\"row\" layout-align=\"center\" style=\"margin-top: 10px\">-->\n          \n      <!--  <div layout=\"column\" layout-align=\"center\" style=\"margin-top: 10px\">-->\n      <!--    <div id=\"list1\" class=\"dropdown-check-list\" tabindex=\"100\" >-->\n      <!--    <span class=\"anchor\">Select Numerical Attributes</span>-->\n      <!--    <ul class=\"items\" id=\"num\">-->\n\n      <!--    </ul>-->\n      <!--    </div>-->\n          \n      <!--    <button onclick=\"myFunction1()\" class=\"dropbtn\">Next</button>-->\n      <!--  </div>-->\n        \n        \n        \n        \n      <!--  <div layout=\"column\" layout-align=\"center\" style=\"margin-top: 10px\">-->\n      <!--    <div id=\"list2\" class=\"dropdown-content-list1\" tabindex=\"100\">-->\n      <!--    <span class=\"anchor1\" >Select Categorical Attributes</span>-->\n      <!--    <ul class=\"items1\" id=\"cat\">-->\n\n      <!--    </ul>-->\n      <!--    </div>-->\n          \n      <!--    <button onclick=\"myFunction2()\" class=\"dropbtn\">Next</button>-->\n      <!--  </div>-->\n        \n      <!--  <div layout=\"column\" layout-align=\"center\" style=\"margin-top: 10px\">-->\n      <!--    <div id=\"list3\" class=\"dropdown-check-list2\" tabindex=\"100\">-->\n      <!--    <span class=\"anchor2\">Select Date Attributes</span>-->\n      <!--    <ul class=\"items2\" id=\"date\">-->\n\n      <!--    </ul>-->\n      <!--    </div>-->\n          \n      <!--    <button onclick=\"myFunction3()\" class=\"dropbtn\">Next</button>-->\n      <!--  </div>-->\n        \n      <!--  <div layout=\"column\" layout-align=\"center\" style=\"margin-top: 10px\">-->\n      <!--    <div id=\"list4\" class=\"dropdown-check-list3\" tabindex=\"100\">-->\n      <!--    <span class=\"anchor3\">Select Text Attributes</span>-->\n      <!--    <ul class=\"items3\" id=\"text\">-->\n   \n      <!--    </ul>-->\n      <!--    </div>-->\n          \n          <!--<button onclick=\"myFunction4()\" class=\"dropbtn\">Next</button>-->\n      <!--  </div>-->\n          \n          \n          \n          \n          \n          \n          \n      <!--</div>-->\n      \n        <div>\n          <!--<button onclick=\"confirmation()\" class=\"dropbtn\">OK, Set the Configuration</button>-->\n            <!--Qty of silly hats-->\n          <!--<input type=\"number\" ng-model=\"msg.payload\" name=\"quantity\" min=\"0\" max=\"1000\">-->\n          <md-button ng-click=\"confirmation()\">Configuration Done.</md-button>\n        </div>\n        \n        \n    </div>\n\n  </div>\n\n</div>\n\n<script>\n// Get the button that opens the modal\nvar btn = document.querySelectorAll(\"button.modal-button\");\n\n// All page modals\nvar modals = document.querySelectorAll('.modal');\n\n// Get the <span> element that closes the modal\nvar spans = document.getElementsByClassName(\"close\");\n\n// var select = document.getElementById(\"num_fields\"); \n// console.log(msg.payload,msg);\n\n// function newchange(event){\n// var data=event.target.value;\n// console.log(data);\n// }\n\n\n// var ul= document.getElementById(\"num\");\n// var ul1 = document.getElementById(\"cat\");\n// var ul2 = document.getElementById(\"date\");\n// var ul3 = document.getElementById(\"text\");\n// var num_options;\n// var num_options1;\n// var num_options2;\n// var num_options3;\n\n(function(scope) {\n    scope.conn=''\n    scope.coll=''\n    scope.database=''\n    scope.src=''\n    scope.cleaner_usage=''\n    // watch msg object from Node-RED\n    // scope.$watch('msg', function(msg) {\n    //     // new message received\n    //     var options = msg.payload;\n    //     num_options = options;\n    //     console.log(options);\n    //     console.log(num_options);\n    //     for(var i = 0; i < options.length; i++) {\n    //         var opt = options[i];\n    //         var li = document.createElement('li');\n    //         var input = document.createElement('input');\n    //         input.type = \"checkbox\";\n    //         input.name=\"numerical\";\n    //         input.value=opt\n    //         li.appendChild(input);\n    //         li.appendChild(document.createTextNode(opt));\n    //         ul.appendChild(li);\n    //         console.log(ul);\n    //     }\n    //     });\n    \n    \n    scope.confirmation=function(){\n        \n        // scope.num_selected = [];\n        // scope.cat_selected = [];\n        // scope.dat_selected = [];\n        // scope.txt_selected = [];\n        // scope.num_checkboxes = document.getElementsByName('numerical');\n        // scope.cat_checkboxes = document.getElementsByName('categorical');\n        // scope.dat_checkboxes = document.getElementsByName('date');\n        // scope.txt_checkboxes = document.getElementsByName('text');\n        // for (var checkbox_1 of scope.num_checkboxes) {\n        // if (checkbox_1.checked)\n        //   scope.num_selected.push(checkbox_1.value);\n          \n        // }\n        // for (var checkbox_2 of scope.cat_checkboxes) {\n        // if (checkbox_2.checked)\n        //   scope.cat_selected.push(checkbox_2.value);\n          \n        // }\n        // for (var checkbox_3 of scope.dat_checkboxes) {\n        // if (checkbox_3.checked)\n        //   scope.dat_selected.push(checkbox_3.value);\n          \n        // }\n        // for (var checkbox_4 of scope.txt_checkboxes) {\n        // if (checkbox_4.checked)\n        //   scope.txt_selected.push(checkbox_4.value);\n          \n        // }\n        scope.send({ conn: scope.conn, coll: scope.coll , database:scope.database, src:scope.src, cleaner_used:scope.cleaner_usage});\n\n}    \n        \n})(scope);\n\n\n\n\n\n// function myFunction1() {\n// //   document.getElementById(\"list1\").classList.toggle(\"hide\");\n  \n  \n//   var selected = [];\n//   var checkboxes = document.getElementsByName('numerical');\n//   for (var checkbox of checkboxes) {\n//     if (checkbox.checked)\n//       selected.push(checkbox.value);\n      \n//     }\n//   console.log(selected);\n//   var subtractTwoArrays = (arr1, arr2) => arr1.filter( el => !arr2.includes(el) );\n//   var x = subtractTwoArrays(num_options, selected);\n//   num_options1=x;\n//   console.log(x);\n//   for(var i = 0; i < x.length; i++) {\n//             var opt = x[i];\n//             var li = document.createElement('li');\n//             var input = document.createElement('input');\n//             input.type = \"checkbox\";\n//             input.name=\"categorical\";\n//             input.value=opt\n//             li.appendChild(input);\n//             li.appendChild(document.createTextNode(opt));\n            \n//             ul1.appendChild(li);\n//             console.log(ul1);\n            \n//         }\n  \n//   document.getElementById(\"list2\").classList.toggle(\"show\");\n// //   document.getElementById(\"list3\").classList.toggle(\"hide\");\n// //   document.getElementById(\"list4\").classList.toggle(\"hide\");\n  \n  \n  \n// }\n\n\n\n\n// function myFunction2() {\n//   document.getElementById(\"list2\").classList.toggle(\"hide\");\n// //   document.getElementById(\"list2\").style.display='none';\n  \n//   var selected = [];\n//   var checkboxes = document.getElementsByName('categorical');\n//   for (var checkbox of checkboxes) {\n//     if (checkbox.checked)\n//       selected.push(checkbox.value);\n      \n//     }\n//   console.log(selected);\n//   var subtractTwoArrays = (arr1, arr2) => arr1.filter( el => !arr2.includes(el) );\n//         // const x => ddTemp.filter( el => !selected.includes(el) );\n//   var x = subtractTwoArrays(num_options1, selected);\n//   num_options2=x;\n//   console.log(x);\n  \n//   for(var i = 0; i < x.length; i++) {\n//             var opt = x[i];\n//             var li = document.createElement('li');\n//             var input = document.createElement('input');\n//             input.type = \"checkbox\";\n//             input.name=\"date\";\n//             input.value=opt\n//             li.appendChild(input);\n//             li.appendChild(document.createTextNode(opt));\n            \n//             ul2.appendChild(li);\n//             console.log(ul2);\n            \n//         }\n  \n// //   document.getElementById(\"list2\").classList.toggle(\"show\");\n//   document.getElementById(\"list3\").classList.toggle(\"show\");\n// //   document.getElementById(\"list4\").classList.toggle(\"hide\");\n  \n  \n  \n// }\n\n\n\n\n\n// function myFunction3() {\n//   document.getElementById(\"list3\").style.display='none';\n  \n  \n//   var selected = [];\n//   var checkboxes = document.getElementsByName('date');\n//   for (var checkbox of checkboxes) {\n//     if (checkbox.checked)\n//       selected.push(checkbox.value);\n      \n//     }\n//   console.log(selected);\n//   var subtractTwoArrays = (arr1, arr2) => arr1.filter( el => !arr2.includes(el) );\n//         // const x => ddTemp.filter( el => !selected.includes(el) );\n//   var x = subtractTwoArrays(num_options2, selected);\n//   num_options3=x;\n//   console.log(x);\n  \n//   for(var i = 0; i < x.length; i++) {\n//             var opt = x[i];\n//             var li = document.createElement('li');\n//             var input = document.createElement('input');\n//             input.type = \"checkbox\";\n//             input.name=\"text\";\n//             input.value=opt\n//             li.appendChild(input);\n//             li.appendChild(document.createTextNode(opt));\n            \n//             ul3.appendChild(li);\n//             console.log(ul3);\n            \n//         }\n  \n// //   document.getElementById(\"list2\").classList.toggle(\"show\");\n// //   document.getElementById(\"list3\").classList.toggle(\"show\");\n// //   document.getElementById(\"list4\").classList.toggle(\"hide\");\n\n\n// }\n\n\n\n\n\n\n\n\n// $(function() {\n//     $('select').multipleSelect({\n//       multiple: true,\n//       multipleWidth: 60\n//     })\n//   })\n\n// function getStates(input){\n//     console.log(input)\n// }\n\n// function changeDD2()\n//     {   \n//         // var ddTemp1 = document.getElementById('num_fields');\n        \n//         var ddTemp=new Array();\n//         $(\"#num_fields option\").each(function()\n//         {\n//             ddTemp.push($(this).text());\n//         });\n//         var dd2Temp = document.getElementById('cat_fields');\n//         // console.log(ddTemp1);\n//         // var ddTemp = [document.getElementById('num_fields')];\n//         console.log(ddTemp);\n//         var selected = [];\n//         // var x=[];\n\n        \n//         for (var option of document.getElementById('num_fields').options) {\n//             if (option.selected) {\n//               selected.push(option.value);\n//             }\n//           }\n//         const subtractTwoArrays = (arr1, arr2) => arr1.filter( el => !arr2.includes(el) );\n//         // const x => ddTemp.filter( el => !selected.includes(el) );\n//         const x = subtractTwoArrays(ddTemp, selected);\n//         // for(var i = 0;i<=selected.length-1;i++)\n//         //     x.push(ddTemp[i] - selected[i]);\n//         console.log(x);\n\n//         for(var i=1;i<x.length;i++)\n//         {\n\n//             var opt = x[i];\n//             var el = document.createElement(\"option\");\n//             el.textContent = opt;\n//             el.value = opt;\n//             console.log(el)\n//             dd2Temp.add(el);\n//         }\n//         console.log(dd2Temp)\n\n//     }\n\n\n// var options = {{{msg.columns}}};\n// var checkList = document.getElementById('list1');\n// checkList.getElementsByClassName('anchor')[0].onclick = function(evt) {\n//   if (checkList.classList.contains('visible'))\n//     checkList.classList.remove('visible');\n//   else\n//     checkList.classList.add('visible');\n// }\n\n\n\n// When the user clicks the button, open the modal\nfor (var i = 0; i < btn.length; i++) {\n btn[i].onclick = function(e) {\n    e.preventDefault();\n    modal = document.querySelector(e.target.getAttribute(\"href\"));\n    modal.style.display = \"block\";\n }\n}\n\n// When the user clicks on <span> (x), close the modal\nfor (var i = 0; i < spans.length; i++) {\n spans[i].onclick = function() {\n    for (var index in modals) {\n      if (typeof modals[index].style !== 'undefined') modals[index].style.display = \"none\";    \n    }\n }\n}\n\n// When the user clicks anywhere outside of the modal, close it\nwindow.onclick = function(event) {\n    if (event.target.classList.contains('modal')) {\n     for (var index in modals) {\n      if (typeof modals[index].style !== 'undefined') modals[index].style.display = \"none\";    \n     }\n    }\n}\n</script>",
+        "storeOutMessages": false,
+        "fwdInMessages": false,
+        "resendOnRefresh": false,
+        "templateScope": "local",
+        "x": 130,
+        "y": 1160,
+        "wires": [
+            [
+                "18ed30a7.ad48cf",
+                "34905106.8bb79e"
+            ]
+        ]
+    },
+    {
+        "id": "eb68fa4.447c208",
+        "type": "function",
+        "z": "83a67f6d.851a9",
+        "name": "",
+        "func": "msg.mongo=\"True\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 1000,
+        "y": 1260,
+        "wires": [
+            [
+                "48e9e1e4.07de9"
+            ]
+        ]
+    },
+    {
+        "id": "2c72777.98d5a88",
+        "type": "change",
+        "z": "83a67f6d.851a9",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "mongo",
+                "pt": "msg",
+                "to": "False",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1060,
+        "y": 1380,
+        "wires": [
+            [
+                "eb68fa4.447c208"
+            ]
+        ]
+    },
+    {
+        "id": "aa619cd6.62992",
+        "type": "delay",
+        "z": "83a67f6d.851a9",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "10",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 870,
+        "y": 1420,
+        "wires": [
+            [
+                "2c72777.98d5a88"
+            ]
+        ]
+    },
+    {
+        "id": "d1fb2b81.e15da8",
+        "type": "ui_template",
+        "z": "83a67f6d.851a9",
+        "group": "44b1f2bd.3b52cc",
+        "name": "",
+        "order": 0,
+        "width": "27",
+        "height": "3",
+        "format": "<div ng-bind-html=\"msg.payload\"></div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "x": 860,
+        "y": 1480,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a2e2de72.c2ccd",
+        "type": "ui_template",
+        "z": "83a67f6d.851a9",
+        "group": "4410e3fd.dbc00c",
+        "name": "Logo / Clock",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "format": "<script id=\"clockScript1\" type=\"text/javascript\">\n    var clockInterval;\n    $(function () {\n        if (clockInterval) return;\n\n        //add logo\n        var div1 = $('<div/>');\n        var logo = new Image();\n\n        logo.src = 'C:/Users/likhi/Desktop/dxc_logo.png';\n        logo.height = 45;\n        div1[0].style.margin = '10px auto';\n\n        div1.append(logo);\n\n        //add clock\n        var div2 = $('<div/>');\n        var p = $('<p/>');\n\n        div2.append(p);\n        div2[0].style.margin = '5px';\n\n        function displayTime() {\n            p.text(new Date().toLocaleString());\n        }\n        \n        clockInterval = setInterval(displayTime, 1000);\n\n        //add to toolbar when it's available\n        var addToToolbarTimer;\n        \n        function addToToolbar() {\n            var toolbar = $('.md-toolbar-tools');\n            \n            if(!toolbar.length) return;\n            \n            toolbar.append(div1);\n            toolbar.append(div2);\n            clearInterval(addToToolbarTimer);\n        }\n        addToToolbarTimer = setInterval(addToToolbar, 100);\n    });\n</script>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": false,
+        "templateScope": "global",
+        "x": 90,
+        "y": 840,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9b5fdfc0.353aa",
+        "type": "ui_group",
+        "z": "",
+        "name": "Flow",
+        "tab": "403e65c2.633a7c",
+        "order": 1,
+        "disp": true,
+        "width": "26",
+        "collapse": false
+    },
+    {
+        "id": "8effe4ac.c90a98",
+        "type": "ui_group",
+        "z": "",
+        "name": "read_dialog",
+        "tab": "403e65c2.633a7c",
+        "order": 5,
+        "disp": false,
+        "width": "17",
+        "collapse": false
+    },
+    {
+        "id": "3280603d.56c4a",
+        "type": "ui_group",
+        "z": "",
+        "name": "read",
+        "tab": "403e65c2.633a7c",
+        "order": 3,
+        "disp": false,
+        "width": "26",
+        "collapse": false
+    },
+    {
+        "id": "88f20730.ab0ff8",
+        "type": "ui_group",
+        "z": "",
+        "name": "clean",
+        "tab": "403e65c2.633a7c",
+        "order": 4,
+        "disp": false,
+        "width": "27",
+        "collapse": false
+    },
+    {
+        "id": "44b1f2bd.3b52cc",
+        "type": "ui_group",
+        "z": "",
+        "name": "mongo",
+        "tab": "403e65c2.633a7c",
+        "order": 2,
+        "disp": false,
+        "width": "27",
+        "collapse": false
+    },
+    {
+        "id": "4410e3fd.dbc00c",
+        "type": "ui_group",
+        "z": "",
+        "name": "Default",
+        "tab": "806501bd.89a37",
+        "order": 1,
+        "disp": false,
+        "width": "24",
+        "collapse": false
+    },
+    {
+        "id": "403e65c2.633a7c",
+        "type": "ui_tab",
+        "z": "",
+        "name": "AI-STARTER",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "806501bd.89a37",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Home",
+        "icon": "dashboard"
+    }
+]
